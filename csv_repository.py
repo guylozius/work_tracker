@@ -9,7 +9,7 @@ class CSVDataRepository:
     def copy_to_csv(self, csv_filename):
         # Get all workers from the database
         print('here')
-        all_workers = self.repo.get_all_workers()
+        all_workers = self.repo.get_all_rows()
         
         # Define the CSV headers
         headers = ['id', 'date', 'hour_spend_worker', 'timestamp']

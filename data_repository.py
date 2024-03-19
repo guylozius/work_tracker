@@ -13,32 +13,34 @@ class DatabaseRepository:
 
     def create_table(self):
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS workers 
-                            (id INTEGER PRIMARY KEY, date TEXT, hour_spend_worker REAL, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
+                            (id INTEGER PRIMARY KEY, date TEXT, mins_spend_worker REAL, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
         self.conn.commit()
 
-    def add_worker(self, date, hour_spend_worker):
-        self.cursor.execute("INSERT INTO workers (date, hour_spend_worker) VALUES (?, ?)", (date, hour_spend_worker))
+    def add_row(self, date, mins_spend_worker):
+        self.cursor.execute("INSERT INTO workers (date, mins_spend_worker) VALUES (?, ?)", (date, mins_spend_worker))
         self.conn.commit()
 
-    def edit_worker_by_id(self, worker_id, new_hours):
-        self.cursor.execute("UPDATE workers SET hour_spend_worker=? WHERE id=?", ( new_hours, worker_id))
+    def edit_row_by_id(self, worker_id, new_mins):
+        self.cursor.execute("UPDATE workers SET mins_spend_worker=? WHERE id=?", (new_mins, worker_id))
         self.conn.commit()
 
-    def get_all_workers(self):
+    def get_all_rows(self):
         self.cursor.execute("SELECT * FROM workers")
         return self.cursor.fetchall()
     
-    def get_last_worker(self):
+    def get_last_row(self):
         self.cursor.execute("SELECT * FROM workers ORDER BY id DESC LIMIT 1")
         data = self.cursor.fetchone()
         if data:
-            return {'id': data[0], 'date': data[1], 'hour_spend_worker': data[2], 'timestamp': data[3]}
+            return {'id': data[0], 'date': data[1], 'mins_spend_worker': data[2], 'timestamp': data[3]}
         else:
             return None
 
-    def delete_all_workers(self):
+    def delete_all_rows(self):
         self.cursor.execute("DELETE FROM workers")
         self.conn.commit()
+
+   
 
     def close_connection(self):
         self.conn.close()
