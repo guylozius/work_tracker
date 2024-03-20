@@ -70,7 +70,7 @@ class AppFocusTracker:
         print(f"Updated worker {worker_id} in the database with {updated_minutes} minutes spent.")
 
         # Export the updated database to CSV using the csv_repo instance
-        self.csv_repo.copy_to_csv(csv_file_name = self.csv_file_name )  # Adjusted to use the instance directly
+        self.csv_repo.copy_to_csv( self.csv_file_name )  # Adjusted to use the instance directly
         print(f"Appended updated data for worker {worker_id} to CSV.")
 
     def run_tracker(self):
